@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ShopEase - E-commerce</title>
+  <title>ShopSphere - E-Commerce</title>
   <style>
-    /* Base styles */
+    /* Reset and basic setup */
     * {
       margin: 0;
       padding: 0;
@@ -13,62 +13,62 @@
       font-family: 'Poppins', sans-serif;
     }
     body {
-      background: #f4f6f8;
+      background: #f5f7fa;
       color: #333;
     }
     header {
-      background: #fff;
-      padding: 1rem 2rem;
+      background: white;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       position: sticky;
       top: 0;
       z-index: 1000;
     }
-    header .logo {
-      font-size: 1.5rem;
+    .logo {
+      font-size: 1.8rem;
       font-weight: bold;
       color: #007bff;
     }
-    header nav {
+    nav {
       display: flex;
       align-items: center;
       gap: 1rem;
     }
-    header nav input[type="text"] {
-      padding: 0.5rem;
-      border-radius: 20px;
+    nav input {
+      padding: 0.5rem 1rem;
       border: 1px solid #ccc;
+      border-radius: 30px;
       width: 200px;
       transition: 0.3s;
     }
-    header nav input[type="text"]:focus {
+    nav input:focus {
       outline: none;
       border-color: #007bff;
     }
-    header nav .cart {
-      font-size: 1.2rem;
+    .cart {
+      font-size: 1.5rem;
       cursor: pointer;
       position: relative;
     }
-    header nav .cart::after {
+    .cart::after {
       content: attr(data-count);
       position: absolute;
       top: -10px;
       right: -10px;
       background: red;
       color: white;
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
-      font-size: 12px;
+      font-size: 0.8rem;
       text-align: center;
-      line-height: 20px;
+      line-height: 18px;
     }
 
-    /* Product grid */
+    /* Products Section */
     .products {
       padding: 2rem;
       display: grid;
@@ -77,9 +77,9 @@
     }
     .product-card {
       background: white;
-      border-radius: 10px;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       transition: 0.3s;
       display: flex;
       flex-direction: column;
@@ -89,35 +89,38 @@
     }
     .product-card img {
       width: 100%;
-      height: 200px;
+      height: 220px;
       object-fit: cover;
     }
     .product-info {
       padding: 1rem;
-      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      flex-grow: 1;
     }
     .product-info h4 {
       margin-bottom: 0.5rem;
+      font-size: 1.1rem;
     }
     .product-info p {
+      flex-grow: 1;
       font-size: 0.9rem;
       color: #666;
-      flex-grow: 1;
+      margin-bottom: 0.5rem;
     }
-    .product-info .price {
+    .price {
       font-weight: bold;
-      margin: 0.5rem 0;
       color: #28a745;
+      margin-bottom: 0.5rem;
     }
     .product-info button {
-      padding: 0.5rem;
+      padding: 0.6rem;
       border: none;
+      border-radius: 8px;
       background: #007bff;
       color: white;
-      border-radius: 5px;
+      font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
     }
@@ -127,7 +130,7 @@
 
     /* Responsive tweaks */
     @media (max-width: 600px) {
-      header nav input[type="text"] {
+      nav input {
         width: 120px;
       }
     }
@@ -136,7 +139,7 @@
 <body>
 
 <header>
-  <div class="logo">ShopEase</div>
+  <div class="logo">ShopSphere</div>
   <nav>
     <input type="text" id="searchInput" placeholder="Search products...">
     <div class="cart" id="cart" data-count="0">🛒</div>
@@ -144,18 +147,47 @@
 </header>
 
 <main class="products" id="productList">
-  <!-- Product cards will be inserted here by JavaScript -->
+  <!-- JavaScript will insert product cards here -->
 </main>
 
 <script>
-  // Sample product data
   const products = [
-    { id: 1, name: "Wireless Headphones", price: 59.99, image: "https://via.placeholder.com/300x200?text=Headphones" },
-    { id: 2, name: "Smart Watch", price: 99.99, image: "https://via.placeholder.com/300x200?text=Smart+Watch" },
-    { id: 3, name: "Running Shoes", price: 120.00, image: "https://via.placeholder.com/300x200?text=Running+Shoes" },
-    { id: 4, name: "Sunglasses", price: 25.00, image: "https://via.placeholder.com/300x200?text=Sunglasses" },
-    { id: 5, name: "Leather Wallet", price: 45.50, image: "https://via.placeholder.com/300x200?text=Wallet" },
-    { id: 6, name: "Backpack", price: 70.00, image: "https://via.placeholder.com/300x200?text=Backpack" },
+    {
+      id: 1,
+      name: "Apple iPhone 14",
+      price: 799.99,
+      image: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-14-model-select-202209-6-1inch_AV1?wid=940&hei=1112&fmt=png-alpha&.v=1660730593210",
+    },
+    {
+      id: 2,
+      name: "Nike Air Max",
+      price: 129.99,
+      image: "https://static.nike.com/a/images/t_prod_ss/w_640,c_limit,f_auto/8ef5bb5a-93e3-4fe5-abc9-fabfe7c5a144/air-max-90-shoes.png",
+    },
+    {
+      id: 3,
+      name: "Sony WH-1000XM5",
+      price: 349.99,
+      image: "https://m.media-amazon.com/images/I/61btW8JH5cL._AC_UF1000,1000_QL80_.jpg",
+    },
+    {
+      id: 4,
+      name: "Dell XPS 13 Laptop",
+      price: 999.99,
+      image: "https://i.dell.com/sites/csimages/Video_Imagery/all/xps-13-9300-laptop-black-keyboard-white.png",
+    },
+    {
+      id: 5,
+      name: "Ray-Ban Sunglasses",
+      price: 89.99,
+      image: "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/RB2132__901L_product1.png?v=1596657843",
+    },
+    {
+      id: 6,
+      name: "Canon EOS R10 Camera",
+      price: 899.99,
+      image: "https://m.media-amazon.com/images/I/71TjUpB6kJL._AC_SL1500_.jpg",
+    }
   ];
 
   const productList = document.getElementById('productList');
@@ -164,18 +196,18 @@
 
   function renderProducts(filter = "") {
     productList.innerHTML = "";
-    const filteredProducts = products.filter(product => 
+    const filteredProducts = products.filter(product =>
       product.name.toLowerCase().includes(filter.toLowerCase())
     );
 
     filteredProducts.forEach(product => {
       const productCard = document.createElement('div');
-      productCard.className = "product-card";
+      productCard.className = 'product-card';
       productCard.innerHTML = `
         <img src="${product.image}" alt="${product.name}">
         <div class="product-info">
           <h4>${product.name}</h4>
-          <p>High quality and durable.</p>
+          <p>Top quality product with latest features.</p>
           <div class="price">$${product.price.toFixed(2)}</div>
           <button onclick="addToCart('${product.name}')">Add to Cart</button>
         </div>
@@ -187,14 +219,14 @@
   function addToCart(productName) {
     cartCount++;
     cart.setAttribute('data-count', cartCount);
-    alert(`${productName} added to cart!`);
+    alert(productName + " has been added to cart!");
   }
 
   document.getElementById('searchInput').addEventListener('input', (e) => {
     renderProducts(e.target.value);
   });
 
-  // Initial render
+  // Initial rendering
   renderProducts();
 </script>
 
