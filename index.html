@@ -1,10 +1,202 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Cloud Computing Project</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ShopEase - E-commerce</title>
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: #f4f6f8;
+      color: #333;
+    }
+    header {
+      background: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #007bff;
+    }
+    header nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    header nav input[type="text"] {
+      padding: 0.5rem;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      width: 200px;
+      transition: 0.3s;
+    }
+    header nav input[type="text"]:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+    header nav .cart {
+      font-size: 1.2rem;
+      cursor: pointer;
+      position: relative;
+    }
+    header nav .cart::after {
+      content: attr(data-count);
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: red;
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 12px;
+      text-align: center;
+      line-height: 20px;
+    }
+
+    /* Product grid */
+    .products {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    .product-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .product-info {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-info h4 {
+      margin-bottom: 0.5rem;
+    }
+    .product-info p {
+      font-size: 0.9rem;
+      color: #666;
+      flex-grow: 1;
+    }
+    .product-info .price {
+      font-weight: bold;
+      margin: 0.5rem 0;
+      color: #28a745;
+    }
+    .product-info button {
+      padding: 0.5rem;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .product-info button:hover {
+      background: #0056b3;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      header nav input[type="text"] {
+        width: 120px;
+      }
+    }
+  </style>
 </head>
-<body style="text-align:center;">
-  <h1>Hello, I'm [Your Name]</h1>
-  <p>This website is hosted on the cloud!</p>
+<body>
+
+<header>
+  <div class="logo">ShopEase</div>
+  <nav>
+    <input type="text" id="searchInput" placeholder="Search products...">
+    <div class="cart" id="cart" data-count="0">🛒</div>
+  </nav>
+</header>
+
+<main class="products" id="productList">
+  <!-- Product cards will be inserted here by JavaScript -->
+</main>
+
+<script>
+  // Sample product data
+  const products = [
+    { id: 1, name: "Wireless Headphones", price: 59.99, image: "https://via.placeholder.com/300x200?text=Headphones" },
+    { id: 2, name: "Smart Watch", price: 99.99, image: "https://via.placeholder.com/300x200?text=Smart+Watch" },
+    { id: 3, name: "Running Shoes", price: 120.00, image: "https://via.placeholder.com/300x200?text=Running+Shoes" },
+    { id: 4, name: "Sunglasses", price: 25.00, image: "https://via.placeholder.com/300x200?text=Sunglasses" },
+    { id: 5, name: "Leather Wallet", price: 45.50, image: "https://via.placeholder.com/300x200?text=Wallet" },
+    { id: 6, name: "Backpack", price: 70.00, image: "https://via.placeholder.com/300x200?text=Backpack" },
+  ];
+
+  const productList = document.getElementById('productList');
+  const cart = document.getElementById('cart');
+  let cartCount = 0;
+
+  function renderProducts(filter = "") {
+    productList.innerHTML = "";
+    const filteredProducts = products.filter(product => 
+      product.name.toLowerCase().includes(filter.toLowerCase())
+    );
+
+    filteredProducts.forEach(product => {
+      const productCard = document.createElement('div');
+      productCard.className = "product-card";
+      productCard.innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <div class="product-info">
+          <h4>${product.name}</h4>
+          <p>High quality and durable.</p>
+          <div class="price">$${product.price.toFixed(2)}</div>
+          <button onclick="addToCart('${product.name}')">Add to Cart</button>
+        </div>
+      `;
+      productList.appendChild(productCard);
+    });
+  }
+
+  function addToCart(productName) {
+    cartCount++;
+    cart.setAttribute('data-count', cartCount);
+    alert(`${productName} added to cart!`);
+  }
+
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    renderProducts(e.target.value);
+  });
+
+  // Initial render
+  renderProducts();
+</script>
+
 </body>
 </html>
